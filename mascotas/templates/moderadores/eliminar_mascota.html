@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Eliminar Mascota</h2>
+  <div class="alert alert-warning">¿Estás seguro de que deseas eliminar la mascota <strong>{{ mascota.nombre }}</strong>?</div>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a href="{% url 'moderador_listar_mascotas' %}" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+<table class="table table-bordered table-hover align-middle">
+  <thead class="table-light">
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Dueño</th>
+      <th>Teléfono</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for mascota in mascotas %}
+    <tr>
+      <td>{{ mascota.nfc_id }}</td>
+      <td>{{ mascota.nombre }}</td>
+      <td>{{ mascota.nombre_dueno }}</td>
+      <td>{{ mascota.telefono_dueno }}</td>
+      <td>
+        <a href="{% url 'moderador_editar_mascota' mascota.pk %}" class="btn btn-sm btn-warning">Editar</a>
+        <a href="{% url 'moderador_eliminar_mascota' mascota.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5" class="text-center">No hay mascotas registradas.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>

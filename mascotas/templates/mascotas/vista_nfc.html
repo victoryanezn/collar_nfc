@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ mascota.nombre }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'mascotas/estilos.css' %}">
+</head>
+<body class="bg-light">
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card shadow" style="max-width: 500px; width: 100%;">
+        
+        <div class="card-body text-center">
+            {% if mascota.foto %}
+                <img src="{{ mascota.foto.url }}" class="pet-photo mb-3" alt="Foto de {{ mascota.nombre }}" style="width: 220px; height: 220px; object-fit: cover; border-radius: 3px;">
+            {% else %}
+                <img src="{% static 'img/default_pet.jpg' %}" class="pet-photo mb-3" alt="Sin foto" style="width: 180px; height: 180px; object-fit: cover; border-radius: 3px;">
+            {% endif %}
+            <h2 class="card-title mb-3">Información de la Mascota</h2>
+            <h3 class="card-title">Nombre: {{ mascota.nombre }}</h3>
+            <p class="card-text"><strong>Vacunado contra la rabia:</strong> {{ mascota.vacunado_rabia|yesno:"Sí,No" }}</p>
+            <p class="card-text"><strong>Dueño:</strong> {{ mascota.nombre_dueno }}</p>
+            <p class="card-text"><strong>Teléfono:</strong> {{ mascota.telefono_dueno }}</p>
+            {% comment %} <p class="card-text"><strong>Email:</strong> {{ mascota.email_dueno }}</p> {% endcomment %}
+            <button class="btn btn-primary mt-3 w-100" onclick="enviarUbicacion()">Enviar ubicación actual</button>
+        </div>
+    </div>
+</div>
+
+<script>
+function enviarUbicacion() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            fetch('/guardar_ubicacion/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({
+                    nfc_id: '{{ mascota.nfc_id }}',
+                    latitud: position.coords.latitude,
+                    longitud: position.coords.longitude
+                })
+            });
+        });
+    } else {
+        alert("La geolocalización no está disponible en este navegador.");
+    }
+}
+</script>
+
+</body>
+</html>
