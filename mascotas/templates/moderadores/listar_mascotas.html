@@ -4,13 +4,13 @@
   <h2>Lista de Mascotas</h2>
   <form id="busqueda-form" class="row g-2 mb-3" autocomplete="off">
     <div class="col-md-3">
-      <input type="text" name="nfc_id" id="busca-nfc" class="form-control" placeholder="Buscar por ID">
+      <input type="text" name="nfc_id" id="busca-nfc" class="form-control" placeholder="Buscar por ID" value="{{ nfc_id|default:'' }}">
     </div>
     <div class="col-md-3">
-      <input type="text" name="nombre" id="busca-nombre" class="form-control" placeholder="Buscar por nombre">
+      <input type="text" name="nombre" id="busca-nombre" class="form-control" placeholder="Buscar por nombre" value="{{ nombre|default:'' }}">
     </div>
     <div class="col-md-3">
-      <input type="text" name="telefono_dueno" id="busca-telefono" class="form-control" placeholder="Buscar por teléfono">
+      <input type="text" name="telefono_dueno" id="busca-telefono" class="form-control" placeholder="Buscar por teléfono" value="{{ telefono_dueno|default:'' }}">
     </div>
     <div class="col-md-3">
       <button type="submit" class="btn btn-primary w-100">Buscar</button>

@@ -1,3 +1,12 @@
+
+# Email backend para producción (Gmail)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'victor.faviano2005@gmail.com'
+EMAIL_HOST_PASSWORD = 'vqgcagffgfgnuagg'
+DEFAULT_FROM_EMAIL = 'CorreaNFC <victor.faviano2005@gmail.com>'
 # Login/Logout settings para moderadores
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/Mascota/moderador/mascotas/'
@@ -30,7 +39,7 @@ SECRET_KEY = 'django-insecure-&9niilcz9h3eucni(+igdah3y-cc3=$v754_%x+=7rwo_+*#a-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '10.127.179.181']
 
 
 # Application definition

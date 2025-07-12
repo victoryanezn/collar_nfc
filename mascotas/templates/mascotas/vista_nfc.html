@@ -25,7 +25,13 @@
             <p class="card-text"><strong>Dueño:</strong> {{ mascota.nombre_dueno }}</p>
             <p class="card-text"><strong>Teléfono:</strong> {{ mascota.telefono_dueno }}</p>
             {% comment %} <p class="card-text"><strong>Email:</strong> {{ mascota.email_dueno }}</p> {% endcomment %}
-            <button class="btn btn-primary mt-3 w-100" onclick="enviarUbicacion()">Enviar ubicación actual</button>
+<button class="btn btn-primary mt-3 w-100" onclick="enviarUbicacion()">Enviar ubicación actual</button>
+<div id="confirmacion-envio" class="alert alert-success mt-3 d-none" role="alert">
+  ¡La ubicación fue enviada al dueño!
+</div>
+<div id="error-envio" class="alert alert-danger mt-3 d-none" role="alert">
+  No se pudo enviar la ubicación. <span id="error-envio-msg"></span>
+</div>
         </div>
     </div>
 </div>
@@ -34,7 +40,7 @@
 function enviarUbicacion() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
-            fetch('/guardar_ubicacion/', {
+            fetch('/Mascota/guardar_ubicacion/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -45,6 +51,23 @@ function enviarUbicacion() {
                     latitud: position.coords.latitude,
                     longitud: position.coords.longitude
                 })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'ok') {
+                    document.getElementById('confirmacion-envio').classList.remove('d-none');
+                    document.getElementById('error-envio').classList.add('d-none');
+                    setTimeout(() => {
+                        document.getElementById('confirmacion-envio').classList.add('d-none');
+                    }, 4000);
+                } else {
+                    document.getElementById('error-envio').classList.remove('d-none');
+                    document.getElementById('error-envio-msg').textContent = data.message ? ' (' + data.message + ')' : '';
+                }
+            })
+            .catch((err) => {
+                document.getElementById('error-envio').classList.remove('d-none');
+                document.getElementById('error-envio-msg').textContent = '';
             });
         });
     } else {

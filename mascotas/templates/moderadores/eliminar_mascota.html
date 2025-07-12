@@ -6,7 +6,7 @@
   <form method="post">
     {% csrf_token %}
     <button type="submit" class="btn btn-danger">Eliminar</button>
-    <a href="{% url 'moderador_listar_mascotas' %}" class="btn btn-secondary">Cancelar</a>
+    <a href="{% url 'moderador_listar_mascotas' %}{% if params %}?{{ params }}{% endif %}" class="btn btn-secondary">Cancelar</a>
   </form>
 </div>
 {% endblock %}

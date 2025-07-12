@@ -13,7 +13,9 @@ class Mascota(models.Model):
     foto = models.ImageField(upload_to='fotos_mascotas/')
     vacunado_rabia = models.BooleanField(default=False)
     nombre_dueno = models.CharField(max_length=100)
-    telefono_dueno = models.CharField(max_length=20)
+    rut_dueno = models.CharField(max_length=15, verbose_name='RUT del dueño')
+    email_dueno = models.EmailField(max_length=254, verbose_name='Correo del dueño')
+    telefono_dueno = models.CharField(max_length=20, null=True, blank=True)
 
     def __str__(self):
         return f"{self.nombre} ({self.nfc_id})"

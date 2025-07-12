@@ -3,7 +3,10 @@
     <tr>
       <th>ID</th>
       <th>Nombre</th>
+      <th>Vac. Rabia</th>
       <th>Dueño</th>
+      <th>RUT</th>
+      <th>Correo</th>
       <th>Teléfono</th>
       <th>Acciones</th>
     </tr>
@@ -13,11 +16,14 @@
     <tr>
       <td>{{ mascota.nfc_id }}</td>
       <td>{{ mascota.nombre }}</td>
+      <td>{{ mascota.vacunado_rabia|yesno:"Sí,No" }}</td>
       <td>{{ mascota.nombre_dueno }}</td>
+      <td>{{ mascota.rut_dueno }}</td>
+      <td>{{ mascota.email_dueno }}</td>
       <td>{{ mascota.telefono_dueno }}</td>
       <td>
-        <a href="{% url 'moderador_editar_mascota' mascota.pk %}" class="btn btn-sm btn-warning">Editar</a>
-        <a href="{% url 'moderador_eliminar_mascota' mascota.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+        <a href="{% url 'moderador_editar_mascota' mascota.pk %}?nfc_id={{ request.GET.nfc_id|urlencode }}&nombre={{ request.GET.nombre|urlencode }}&telefono_dueno={{ request.GET.telefono_dueno|urlencode }}" class="btn btn-sm btn-warning">Editar</a>
+        <a href="{% url 'moderador_eliminar_mascota' mascota.pk %}?nfc_id={{ request.GET.nfc_id|urlencode }}&nombre={{ request.GET.nombre|urlencode }}&telefono_dueno={{ request.GET.telefono_dueno|urlencode }}" class="btn btn-sm btn-danger">Eliminar</a>
       </td>
     </tr>
     {% empty %}
