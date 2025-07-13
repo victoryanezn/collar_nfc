@@ -1,0 +1,14 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.pet-photo {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #007bff;
+    background-color: #e9ecef;
+    display: block;
+    margin: 0 auto;
+}
